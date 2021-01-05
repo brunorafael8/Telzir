@@ -7,7 +7,8 @@
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx .",
     "prettier": "prettier",
     "tsc": "tsc --pretty",
-    "server": "yarn workspace @telzir/server graphql"
+    "server": "yarn workspace @telzir/server graphql",
+    "server-seed": "yarn workspace @telzir/server seed"
   },
   "workspaces": {
     "packages": [
