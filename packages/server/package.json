@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/app.ts",
     "graphql": "webpack --watch --progress --config webpack.config.js",
-    "seed": "babel-node src/seeder.ts --extensions \".ts\""
+    "seed": "babel-node src/seeder.ts --extensions \".ts\"",
+    "copy-to-package": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts,.tsx\" scripts/copySchemaToPackage.js",
+    "update-schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts,.tsx\" scripts/updateSchema.js && yarn copy-to-package"
   },
   "keywords": [],
   "author": "",

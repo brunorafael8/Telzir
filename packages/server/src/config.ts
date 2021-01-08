@@ -10,3 +10,11 @@ export const databaseConfig = process.env.NODE_ENV === 'production' ? dBproducti
 
 // Export GraphQL Server settings
 export const graphqlPort = process.env.GRAPHQL_PORT || 5000;
+
+export const project = {
+  // server
+  GRAPHQL_SCHEMA_FILE: process.env.GRAPHQL_SCHEMA_FILE || './schemas/graphql/schema.graphql',
+
+  // web, app
+  GRAPHQL: process.env.GRAPHQL || 'graphql',
+};

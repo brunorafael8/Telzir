@@ -8,7 +8,8 @@
     "prettier": "prettier",
     "tsc": "tsc --pretty",
     "server": "yarn workspace @telzir/server graphql",
-    "server-seed": "yarn workspace @telzir/server seed"
+    "server-seed": "yarn workspace @telzir/server seed",
+    "update-schema": "yarn workspace @telzir/server update-schema"
   },
   "workspaces": {
     "packages": [
