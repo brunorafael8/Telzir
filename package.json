@@ -9,7 +9,8 @@
     "tsc": "tsc --pretty",
     "server": "yarn workspace @telzir/server graphql",
     "server-seed": "yarn workspace @telzir/server seed",
-    "update-schema": "yarn workspace @telzir/server update-schema"
+    "update-schema": "yarn workspace @telzir/server update-schema",
+    "web": "yarn workspace @telzir/web start"
   },
   "workspaces": {
     "packages": [
