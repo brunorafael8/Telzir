@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import styled, { withTheme } from 'styled-components';
-import selectArrow from '../assets/selectarrow.svg';
+import selectArrow from '../../assets/selectarrow.svg';
 
 export interface InputProps {
   id: string;
   name: string;
   select: boolean;
   selectItens: Array<{}>;
-  placeholder: string;
+  label: string;
   pattern: string;
   value: string;
   theme: Object;
@@ -28,26 +28,24 @@ const TextWrapper = styled.div`
   height: 20px;
 `;
 
-const Select = styled.select`
+const Select = styled.select<{ value: string }>`
   font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #332a39;
-  border-bottom: 1px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
+  border-bottom: 1px solid ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
   outline: 0;
   padding: 9px 0 4px 0;
-  background: #ffffff;
   transition: border-color 0.2s;
   display: block;
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   font-size: 0.8em;
-  color: #332a39;
+  color: #000;
   font-family: 'Roboto', sans-serif;
-  font-style: italic;
   font-weight: 300;
-  background: url(${selectArrow}) 96% / 15% no-repeat #fff;
+  background: url(${selectArrow}) 96% / 15% no-repeat transparent;
   background-size: 12px 14px;
+
   ::placeholder {
     color: transparent;
   }
@@ -55,36 +53,40 @@ const Select = styled.select`
   :placeholder-shown ~ .form__label {
     font-size: 0.8em;
     cursor: text;
-    top: 18px;
     color: #332a39;
+    ${({ value }) => !!value && `top: 18px;`};
   }
 
   :focus ~ .form__label {
     color: #332a39;
     position: absolute;
-    top: 0;
     display: block;
-    transition: 0.2s;
     font-size: 12px;
+    ${({ value }) =>
+      !value &&
+      ` 
+    top: 0;
+    transition: 0.2s;
+   `};
   }
 
   :placeholder-shown {
-    border-bottom: 1px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
+    border-bottom: 1px solid ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
   }
 
   :focus {
-    border-bottom: 2px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
+    border-bottom: 2px solid ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
   }
 `;
 
-const TextLabel = styled.label`
+const TextLabel = styled.label<{ value: string }>`
   position: absolute;
-  top: ${(props: { select: boolean; value: string }) => (props.select && !props.value ? '20px' : '0')};
+  top: ${({ value }) => (!!value ? '0' : '20px')};
   display: block;
   transition: 0.2s;
   font-weight: normal;
   font-size: 12px;
-  color: ${({ theme: { colors }, value }) => (value ? '#dcdcdc' : '#332a39')};
+  color: ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
   font-family: 'Roboto', sans-serif;
 `;
 
@@ -97,14 +99,13 @@ const Options = React.memo((props) =>
 );
 
 const InputComponent = (props: InputProps) => {
-  const InputRef = useRef<any>(null);
   const SelectRef = useRef<HTMLSelectElement>(null);
   const {
     id,
     name,
     select,
     selectItens,
-    placeholder,
+    label,
     pattern,
     value,
     theme,
@@ -116,7 +117,7 @@ const InputComponent = (props: InputProps) => {
     onKeyUp,
     error,
   } = props;
-
+  console.log(value, !!value, 'asuhauhs');
   const [passwordType, setPasswordType] = useState(type);
 
   const handleShow = () => {
@@ -150,7 +151,7 @@ const InputComponent = (props: InputProps) => {
         value={value}
         theme={theme}
       >
-        {placeholder}
+        {label}
       </TextLabel>
     </TextWrapper>
   );
