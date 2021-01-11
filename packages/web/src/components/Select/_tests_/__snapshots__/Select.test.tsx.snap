@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Select 1`] = `
+<div
+  class="Select__TextWrapper-sc-1ye0xa8-0 fHBiDA"
+>
+  <select
+    class="Select-sc-1ye0xa8-1 geVNkU"
+    data-required="true"
+  >
+    <option
+      disabled=""
+      hidden=""
+      value=""
+    />
+    <option
+      value="test"
+    >
+      test
+    </option>
+  </select>
+  <label
+    class="Select__TextLabel-sc-1ye0xa8-2 cVkhOy form__label"
+  />
+</div>
+`;
