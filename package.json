@@ -8,9 +8,10 @@
     "prettier": "prettier",
     "tsc": "tsc --pretty",
     "server": "yarn workspace @telzir/server graphql",
-    "server-seed": "yarn workspace @telzir/server seed",
+    "server:seed": "yarn workspace @telzir/server seed",
     "update-schema": "yarn workspace @telzir/server update-schema",
-    "web": "yarn workspace @telzir/web start"
+    "web": "yarn workspace @telzir/web start",
+    "web:test": "yarn workspace @telzir/web test"
   },
   "workspaces": {
     "packages": [
@@ -32,8 +33,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.29.2",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
+    "@wordpress/jest-console": "^3.10.0",
+    "babel-jest": "^26.6.3",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^7.1.0",
