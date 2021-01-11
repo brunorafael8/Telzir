@@ -25,23 +25,22 @@ export interface Props {
 const TextWrapper = styled.div<{ split: boolean }>`
   position: relative;
   padding: 8px 0 0;
-  margin-top: 35px;
+  margin-top: 24px;
   width: ${({ split }) => (split ? '45%' : '100%')};
   height: 20px;
 `;
 
-const Input = styled.input<{ password: string; error: string }>`
+const Input = styled.input<{ value: string }>`
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #332a39;
+  border-bottom: 1px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
   outline: 0;
   font-size: 0.8em;
   padding: 9px 0 4px 0;
   background: transparent;
   transition: border-color 0.2s;
   font-family: 'Roboto', sans-serif;
-  color: #332a39;
-  font-style: italic;
+  color: #000;
   font-weight: 300;
 
   ::placeholder {
@@ -69,11 +68,11 @@ const Input = styled.input<{ password: string; error: string }>`
   }
 
   :placeholder-shown {
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
   }
 
   :focus {
-    border-bottom: 2px solid #332a39;
+    border-bottom: 2px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
   }
 `;
 
