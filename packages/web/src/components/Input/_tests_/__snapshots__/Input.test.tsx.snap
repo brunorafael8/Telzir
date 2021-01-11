@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Input 1`] = `
+<div
+  class="Input__TextWrapper-sc-51nsd5-0 BAvoC"
+>
+  <input
+    class="Input-sc-51nsd5-1 dGyjgp"
+    value=""
+  />
+  <label
+    class="Input__TextLabel-sc-51nsd5-2 cYThCj form__label"
+  />
+</div>
+`;
