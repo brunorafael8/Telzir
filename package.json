@@ -11,7 +11,9 @@
     "server:seed": "yarn workspace @telzir/server seed",
     "update-schema": "yarn workspace @telzir/server update-schema",
     "web": "yarn workspace @telzir/web start",
-    "web:test": "yarn workspace @telzir/web test"
+    "relay": "yarn workspace @telzir/web relay",
+    "web:test": "yarn workspace @telzir/web test",
+    "update": "yarn update-schema && yarn relay"
   },
   "workspaces": {
     "packages": [
