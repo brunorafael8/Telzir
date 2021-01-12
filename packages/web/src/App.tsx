@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLazyLoadQuery } from 'react-relay/hooks';
 import { graphql } from 'react-relay';
 import styled from 'styled-components';
@@ -30,7 +30,7 @@ const Logo = styled.h1`
 
 const Content = styled.main`
   width: 437px;
-  height: 60%;
+  height: 70%;
   background: #e92036;
   border-radius: 15px;
   display: flex;
@@ -46,11 +46,30 @@ const Content = styled.main`
 const Title = styled.h2`
   font-family: Roboto;
   font-weight: 900;
-  font-size: 20px;
+  font-size: 28px;
   color: #ffffff;
-  margin-bottom: 20px;
   text-transform: uppercase;
   margin-top: 40px;
+`;
+
+const Description = styled.p`
+  font-family: Roboto;
+  font-weight: light;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 20px;
+  margin-top: 10px;
+`;
+
+const DescriptionForm = styled.p`
+  font-family: Roboto;
+  font-weight: light;
+  font-size: 16px;
+  text-align: left;
+  color: #ffffff;
+  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 const Form = styled.form`
@@ -69,16 +88,19 @@ const Infos = styled.div`
   align-items: center;
   width: 100%;
   margin: 40px 0;
+  flex-direction: column;
 `;
 
 const Info = styled.div`
   display: flex;
   border-radius: 10px;
-  width: 160px;
+  width: 80%;
   height: 90px;
   flex-direction: column;
   padding: 10px 20px;
   background-color: #000b3c;
+  margin-bottom: 5px;
+  box-sizing: border-box;
 `;
 
 const InfoTitle = styled.span`
@@ -104,6 +126,8 @@ const InfoValue = styled.span`
 `;
 
 function App() {
+  const formRef = useRef(null);
+  const priceRef = useRef(null);
   const { plans, price } = useLazyLoadQuery<AppQuery>(query, {});
   const [plan, setPlan] = useState('');
   const [origin, setOrigin] = useState('');
@@ -112,7 +136,7 @@ function App() {
   const [priceWithPlan, setPriceWithPlan] = useState<string, null>(null);
   const [priceWithoutPlan, setPriceWithoutPlan] = useState<string, null>(null);
 
-  const getPrice = (event) => {
+  const getPrice = async (event) => {
     event.preventDefault();
     const result = price?.edges.find((i) => i?.node.origin === origin && i?.node.destiny === destiny);
     if (!result) {
@@ -141,7 +165,7 @@ function App() {
       setPriceWithoutPlan('0');
     }
 
-    return priceWithPlan;
+    return priceRef && priceRef?.current.scrollIntoView(false);
   };
   console.log(priceWithPlan, priceWithoutPlan, 'priceWithPlan, priceWithoutPlan');
   return (
@@ -150,7 +174,32 @@ function App() {
 
       <Content>
         <Title>FaleMais</Title>
-        <Form onSubmit={getPrice}>
+        <Description>
+          FaleMais é novo produto da Telzir um plano no qual você adquire e ganha alguns minutos de graça com base no
+          plano escolhido. Os minutos excedentes você só paga uma pequena taxa.
+          <a style={{ fontWeight: 'bold' }} onClick={() => formRef?.current.scrollIntoView()}>
+            Gostou? Clique  aqui para fazer uma simulação !
+          </a>
+        </Description>
+        <Infos>
+          <Info>
+            <InfoTitle>FaleMais 30</InfoTitle>
+            <InfoValue>30 Minutos</InfoValue>
+          </Info>
+
+          <Info>
+            <InfoTitle>FaleMais 70</InfoTitle>
+            <InfoValue>70 Minutos</InfoValue>
+          </Info>
+          <Info>
+            <InfoTitle>FaleMais 120</InfoTitle>
+            <InfoValue>120 Minutos</InfoValue>
+          </Info>
+        </Infos>
+        <DescriptionForm>
+          Calcule o valor da sua chamada com o novo produto da <span style={{ fontWeight: 'bold' }}>TelZir</span>:
+        </DescriptionForm>
+        <Form ref={formRef} onSubmit={getPrice}>
           <Input
             id="origin"
             value={origin}
@@ -192,28 +241,30 @@ function App() {
 
           <SubmitButton type="submit">Calcular</SubmitButton>
         </Form>
-        {priceWithPlan && priceWithoutPlan && (
-          <Infos>
-            <Info>
-              <InfoTitle>Com o Plano:</InfoTitle>
-              <InfoValue>
-                {priceWithPlan.toLocaleString('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL',
-                })}
-              </InfoValue>
-            </Info>
-            <Info>
-              <InfoTitle>Sem o Plano:</InfoTitle>
-              <InfoValue>
-                {priceWithoutPlan.toLocaleString('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL',
-                })}
-              </InfoValue>
-            </Info>
-          </Infos>
-        )}
+        <Infos ref={priceRef}>
+          {priceWithPlan && priceWithoutPlan && (
+            <>
+              <Info>
+                <InfoTitle>Com o Plano:</InfoTitle>
+                <InfoValue>
+                  {priceWithPlan.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
+                </InfoValue>
+              </Info>
+              <Info>
+                <InfoTitle>Sem o Plano:</InfoTitle>
+                <InfoValue>
+                  {priceWithoutPlan.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
+                </InfoValue>
+              </Info>
+            </>
+          )}
+        </Infos>
       </Content>
     </Container>
   );
