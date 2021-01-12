@@ -4,22 +4,13 @@ import styled from 'styled-components';
 export interface Props {
   id: string;
   name: string;
-  maxLength: string;
-  placeholder: string;
-  pattern: string;
   value: string;
-  theme: Record<string, any>;
-  split: boolean;
-  disabled: boolean;
-  style: Record<string, any>;
-  className: string;
-  mask: string;
-  maskChar: string;
-  type: string;
-  onKeyUp: () => void;
-  error: string;
-  onChange: (any) => void;
+  type?: string;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   label: string;
+  min?: string;
+  max?: string;
+  maxlength?: string;
 }
 
 const TextWrapper = styled.div<{ split: boolean }>`
@@ -40,7 +31,7 @@ const Input = styled.input<{ value: string }>`
   background: transparent;
   transition: border-color 0.2s;
   font-family: 'Roboto', sans-serif;
-  color: #000;
+  color: #fff;
   font-weight: 300;
 
   ::placeholder {
@@ -89,49 +80,23 @@ const TextLabel = styled.label<{ value: string }>`
 
 const InputComponent = (props: Props) => {
   const InputRef = useRef<any>(null);
-  const {
-    id,
-    name,
-    maxLength,
-    placeholder,
-    pattern,
-    value,
-    theme,
-    split,
-    onChange,
-    disabled,
-    mask,
-    maskChar,
-    type,
-    style,
-    onKeyUp,
-    className,
-    error,
-    label,
-  } = props;
+  const { id, name, value, onChange, type, label, min, max, maxlength } = props;
 
   return (
-    <TextWrapper style={style} className={className} split={split}>
+    <TextWrapper>
       <Input
         id={id}
         placeholder={label}
         onChange={onChange}
         name={name}
         ref={InputRef}
-        disabled={disabled}
-        onKeyUp={onKeyUp}
-        pattern={pattern}
         value={value}
-        theme={theme}
         type={type}
+        min={min}
+        max={max}
+        maxlength={maxlength}
       />
-      <TextLabel
-        onClick={() => InputRef.current.getInputDOMNode().focus()}
-        className="form__label"
-        htmlFor={id}
-        value={value}
-        theme={theme}
-      >
+      <TextLabel onClick={() => InputRef.current.focus()} className="form__label" htmlFor={id} value={value}>
         {label}
       </TextLabel>
     </TextWrapper>

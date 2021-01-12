@@ -5,19 +5,11 @@ import selectArrow from '../../assets/selectarrow.svg';
 export interface InputProps {
   id: string;
   name: string;
-  select: boolean;
   selectItens: Array<{}>;
   label: string;
-  pattern: string;
   value: string;
-  theme: Object;
-  split: boolean;
-  mask: string;
-  maskChar: string;
-  type: string;
-  onKeyUp: () => void;
-  error: string;
-  onChange: (any) => void;
+  type?: string;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
 const TextWrapper = styled.div`
@@ -32,7 +24,7 @@ const Select = styled.select<{ value: string }>`
   font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 1px solid ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
+  border-bottom: 1px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
   outline: 0;
   padding: 9px 0 4px 0;
   transition: border-color 0.2s;
@@ -40,7 +32,7 @@ const Select = styled.select<{ value: string }>`
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   font-size: 0.8em;
-  color: #000;
+  color: #fff;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   background: url(${selectArrow}) 96% / 15% no-repeat transparent;
@@ -71,12 +63,16 @@ const Select = styled.select<{ value: string }>`
   }
 
   :placeholder-shown {
-    border-bottom: 1px solid ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
+    border-bottom: 1px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
   }
 
   :focus {
-    border-bottom: 2px solid ${({ value }) => (!!value ? '#332a39' : '#dcdcdc')};
+    border-bottom: 2px solid ${({ value }) => (value === '' ? '#dcdcdc' : '#332a39')};
   }
+`;
+
+const Option = styled.option`
+  color: #000;
 `;
 
 const TextLabel = styled.label<{ value: string }>`
@@ -91,32 +87,17 @@ const TextLabel = styled.label<{ value: string }>`
 `;
 
 const Options = React.memo((props) =>
-  props.selectItens.map(({ value, label, hidden, key }: any) => (
-    <option key={key} hidden={hidden} value={value}>
+  props.selectItens.map(({ value, label, key }: any) => (
+    <Option key={key} value={value}>
       {label}
-    </option>
+    </Option>
   )),
 );
 
 const InputComponent = (props: InputProps) => {
   const SelectRef = useRef<HTMLSelectElement>(null);
-  const {
-    id,
-    name,
-    select,
-    selectItens,
-    label,
-    pattern,
-    value,
-    theme,
-    split,
-    onChange,
-    mask,
-    maskChar,
-    type,
-    onKeyUp,
-    error,
-  } = props;
+  const { id, name, selectItens, label, value, onChange, type } = props;
+  console.log(selectItens);
   console.log(value, !!value, 'asuhauhs');
   const [passwordType, setPasswordType] = useState(type);
 
@@ -128,12 +109,11 @@ const InputComponent = (props: InputProps) => {
     }
   };
   return (
-    <TextWrapper split={split}>
+    <TextWrapper>
       <Select
         ref={SelectRef}
         defaultValue={value}
         data-required="true"
-        onKeyUp={onKeyUp}
         autoFocus={false}
         id={id}
         name={name}
@@ -143,14 +123,7 @@ const InputComponent = (props: InputProps) => {
         <Options selectItens={selectItens} />
       </Select>
 
-      <TextLabel
-        onClick={() => (select ? SelectRef.current?.focus() : InputRef.current.getInputDOMNode().focus())}
-        className="form__label"
-        htmlFor={id}
-        select={select}
-        value={value}
-        theme={theme}
-      >
+      <TextLabel onClick={() => SelectRef.current?.focus()} className="form__label" htmlFor={id} value={value}>
         {label}
       </TextLabel>
     </TextWrapper>

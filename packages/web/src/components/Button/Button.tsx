@@ -4,10 +4,10 @@ import styled from 'styled-components';
 
 export interface Props extends React.ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode;
-  isLoading: boolean;
-  style: Record<string, any>;
+  isLoading?: boolean;
+  style?: Record<string, any>;
   className: string;
-  disabled: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -20,7 +20,7 @@ const ButtonStyled = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
+  background-color: #523ed6;
   opacity: ${(props) => (props.disabled ? '0.4' : '1')};
 `;
 
