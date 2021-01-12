@@ -73,8 +73,8 @@ type Price implements Node {
   """MongoDB _id"""
   _id: String
   origin: String
-  destiny: Int
-  pricePerMinute: Int
+  destiny: String
+  pricePerMinute: String
 }
 
 """A connection to a list of items."""
