@@ -25,11 +25,11 @@ const PriceTypeConfig: ConfigType = {
       resolve: (price) => price.origin,
     },
     destiny: {
-      type: GraphQLInt,
+      type: GraphQLString,
       resolve: (price) => price.destiny,
     },
     pricePerMinute: {
-      type: GraphQLInt,
+      type: GraphQLString,
       resolve: (price) => price.pricePerMinute,
     },
   }),
