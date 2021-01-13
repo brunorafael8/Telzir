@@ -175,10 +175,10 @@ function App() {
       <Content>
         <Title>FaleMais</Title>
         <Description>
-          FaleMais é novo produto da Telzir um plano no qual você adquire e ganha alguns minutos de graça com base no
-          plano escolhido. Os minutos excedentes você só paga uma pequena taxa.
+          FaleMais é o novo produto da Telzir. Você escolhe um plano de celular e ganha minutos de graça! Para os
+          minutos excedentes, você só paga uma pequena taxa.
           <a style={{ fontWeight: 'bold' }} onClick={() => formRef?.current.scrollIntoView()}>
-            Gostou? Clique  aqui para fazer uma simulação !
+            Gostou? Clique aqui para fazer uma simulação !
           </a>
         </Description>
         <Infos>
